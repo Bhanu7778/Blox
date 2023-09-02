@@ -1,0 +1,70 @@
+Banking works by transferring money from account A to account B. Most of the time account A is in one bank while account B is another bank. Suppose someone writes an implementation for such a money transfer.
+ 1. What are the test cases? 
+2. What are the issues in such a system? 
+3. What can we do to mitigate some of the issues ?
+ 4. Write the code yourself to demonstrate the mitigations.
+
+Solution:-
+#TESTCASES:
+1.input -1=  500
+Expected output =  500 Transferred  from  Bank_A(Account_A) to Bank_B( Account_B)
+{‘ACCOUNT_A’:500,’ACCOUNT_B’:1500}
+
+2.input = 10000
+Expected output = “Insufficent funds”
+Your output = “Insufficent funds”
+
+3.input = 1000
+1000 Transferred  from  Bank_A( Account_A) to Bank_B(Account_B)
+{‘ACCOUNT_A’:0,’ACCOUNT_B’:2000}
+
+4.Input = 1200000
+Expected output = “Transcation limit exceeded”
+Your output = “Transcation limit excceded”
+
+5.input = 500
+  If passing account_C  has value 
+Expected output = NameError
+Your output = NameError
+ 
+2.
+-Network Issues
+-over transaction
+-Invalid user issue
+
+
+3.
+- Using appropriate network while tranfering the amount
+-should transfer amount with in the transcation limit
+-valid user is allowed to make transfer amount
+
+
+4.code-
+class BankTransfer:
+    Banks={}
+    def __init__(self,name):
+        self.name = name
+        BankTransfer.Banks[self.name] = 0
+    def deposit(self,amount):
+        BankTransfer.Banks[self.name] += amount
+    def withdraw(self,amount):
+            BankTransfer.Banks[self.name] -= amount
+    def transfer(self,reciver,amount):
+        if amount > 100000:
+            print("Transcation limt excceded")
+        elif amount>BankTransfer.Banks[self.name]:
+            print("Insufficent funds")
+        else:  
+            if  BankTransfer.Banks[self.name]:
+                self.withdraw(amount)
+                reciver.deposit(amount)
+                print(str(amount)+" Transfered from Bank_A(Account_A) to Bank_B(Account_B)")
+                print(BankTransfer.Banks)
+account_A = BankTransfer('ACCOUNT_A')
+account_B = BankTransfer("ACCOUNT_B")
+
+account_A.deposit(1000)
+account_B.deposit(1000)
+
+transferAmount = int(input())
+account_A.transfer(account_B,transferAmount)
